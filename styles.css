@@ -1,48 +1,78 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
 }
 
+body {
+  font-size: 1.3rem;
+}
 h2 {
-    text-align: center;
+  margin: 10px;
+  text-align: center;
+  font-size: 3em;
+}
+
+form {
+  margin: 0 auto;
+  text-align: center;
 }
 
 div {
-    width: 200px;
-    height: 200px;
-    text-align: center;
-    background-color: red;
-    border: 3px solid black;
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  text-align: center;
+  border: 3px solid black;
+  padding: 20px;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .droppable {
-    width: 200px;
-    height: 100px;
-    text-align: center;
-    background-color: lightcoral;
-    margin-top: 50px;
+  width: 20%;
+  text-align: center;
+  background-color: lightcoral;
+  transition: 1s;
+  margin-top: 50px;
 }
 
 .verse-section {
-    background-color: lightcyan;
-    padding: 10px;
+  /* background-color: rgb(215, 230, 230); */
+  padding: 10px;
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .f-grid {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
-button {
-    display: block;
-    margin: 0 auto;
-    font-size: 2em;
+.check,
+.reset {
+  display: block;
+  /* margin: 20px auto; */
+  font-size: 2em;
+  border-width: 2.5px;
+  padding: 5px 20px;
+}
+
+.check {
+  background-color: lightblue;
+  border-radius: 20px;
+  box-shadow: 2px 2px;
+}
+.reset {
+  background-color: lightsalmon;
+  border-radius: 20px;
+  box-shadow: 2px 2px;
+}
+
+.not-active {
+  display: none;
+  /* opacity: 0; */
+  /* visibility: hidden; */
 }

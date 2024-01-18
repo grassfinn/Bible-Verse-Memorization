@@ -1,18 +1,34 @@
-const buttonEle = document.querySelector('button');
+const checkButtonEle = document.querySelector('#check');
+const section = document.querySelector('section');
+const form = document.querySelector('form');
+let book;
+let chapter;
+let verse;
 async function fetchData(url = '') {
   const response = await fetch(url);
   const verse = await response.json();
-  console.log(verse.reference, verse.text);
+  // console.log(verse.reference, verse.text);
 
   return verse;
 }
 
-fetchData('https://bible-api.com/james 1:22').then(display);
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(e) {
+  e.preventDefault();
+  book = document.getElementById('book').value;
+  chapter = document.getElementById('chapter').value;
+  verse = document.getElementById('verse').value;
+  let query = `${book} ${chapter}:${verse}`;
+  form.classList.toggle('not-active');
+  checkButtonEle.classList.toggle('not-active');
+  fetchData(`https://bible-api.com/${query}`).then(display);
+}
 
 function display(verse) {
   const h2 = document.querySelector('h2');
   const verseSplit = verse.text.split(' ');
-  const chunkedVerse = chunkWithMinSize(verseSplit, 3, 3);
+  const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
   const shuffledChunkedVerse = shuffle(chunkedVerse);
 
   h2.textContent = verse.reference;
@@ -28,7 +44,7 @@ function display(verse) {
     div.id = `drop-${index}`;
     div.addEventListener('drop', handleDrop);
     div.addEventListener('dragover', allowDrop);
-    //
+
     p.classList.add('verse-section');
     p.id = `drag-${index}`;
     p.addEventListener('dragstart', handleDrag);
@@ -36,30 +52,28 @@ function display(verse) {
     p.draggable = 'true';
     return verse;
   });
-  buttonEle.addEventListener('click', () => handleClick(verse));
+  checkButtonEle.addEventListener('click', () => handleClick(verse));
 }
 
 function handleClick(verse) {
   const verseCollection = document.getElementsByClassName('droppable');
-  console.log(verseCollection);
   const userSubmission = [];
   for (let i = 0; i < verseCollection.length; i++) {
     const firstChild = verseCollection[i].firstChild;
     userSubmission.push(firstChild.textContent);
   }
-  console.log(verse.text);
-  console.log(userSubmission.join(' '));
+  // console.log(verse.text);
+  // console.log(userSubmission.join(' '));
+  const droppableEle = document.querySelectorAll('.droppable');
   if (userSubmission.join(' ') === verse.text) {
+    for (let i = 0; i < droppableEle.length; i++) {
+      droppableEle[i].style.backgroundColor = 'lawngreen';
+    }
     alert('YEEE BOI!');
     return;
   }
   alert('DAAAANG');
 }
-
-//
-// const verse =
-//   'For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.';
-// console.log(verse.split(' '))
 
 // split array into chunks
 //! https://www.30secondsofcode.org/js/s/split-array-into-chunks/
@@ -96,27 +110,19 @@ function shuffle(arr) {
 // console.log(verseSplit.slice(6, 9));
 
 // create the drag a drop items via shuffled array
-//! https://www.w3schools.com/html/html5_draganddrop.asp
 // check if the user put verse in the correct order by comparing it to the original verse
-
-// const drag = document.getElementById('drag')
+//! https://www.w3schools.com/html/html5_draganddrop.asp
 
 function handleDrag(e) {
   e.dataTransfer.setData('text', e.target.id);
-  console.log(e);
 }
 
 function allowDrop(e) {
   e.preventDefault();
-  console.log(e);
 }
 
 function handleDrop(e) {
   e.preventDefault();
-  console.log(e);
   const data = e.dataTransfer.getData('text');
-  console.log(data);
-  console.log(e.dataTransfer);
   e.target.appendChild(document.getElementById(data));
 }
-
