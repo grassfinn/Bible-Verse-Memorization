@@ -43,7 +43,6 @@ div {
 .flex {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -54,7 +53,6 @@ div {
 .check,
 .reset {
   display: block;
-  /* margin: 20px auto; */
   font-size: 2em;
   border-width: 2.5px;
   padding: 5px 20px;
@@ -73,6 +71,4 @@ div {
 
 .not-active {
   display: none;
-  /* opacity: 0; */
-  /* visibility: hidden; */
 }
