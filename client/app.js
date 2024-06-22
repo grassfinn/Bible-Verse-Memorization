@@ -1,18 +1,34 @@
 const checkButtonEle = document.querySelector('#check');
 const section = document.querySelector('section');
 const form = document.querySelector('form');
+const res = await fetch('verses.json');
+const data = await res.json();
 let book;
 let chapter;
 let verse;
+
+function randomVerse(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+
 async function fetchData(url = '') {
   const response = await fetch(url);
   const verse = await response.json();
-  // console.log(verse.reference, verse.text);
 
   return verse;
 }
 
 form.addEventListener('submit', handleSubmit);
+
+function loadRandomVerse({ book, chapter, verse } = randomVerse(data)) {
+  let query = `${book} ${chapter}:${verse}`;
+  form.classList.toggle('not-active');
+  checkButtonEle.classList.toggle('not-active');
+  fetchData(`https://bible-api.com/${query}`).then(display);
+}
+
+loadRandomVerse();
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -69,10 +85,8 @@ function handleClick(verse) {
     for (let i = 0; i < droppableEle.length; i++) {
       droppableEle[i].style.backgroundColor = 'lawngreen';
     }
-    alert('YEEE BOI!');
     return;
   }
-  alert('DAAAANG');
 }
 
 // split array into chunks
@@ -114,6 +128,7 @@ function shuffle(arr) {
 //! https://www.w3schools.com/html/html5_draganddrop.asp
 
 function handleDrag(e) {
+  console.log(e);
   e.dataTransfer.setData('text', e.target.id);
 }
 
@@ -124,5 +139,5 @@ function allowDrop(e) {
 function handleDrop(e) {
   e.preventDefault();
   const data = e.dataTransfer.getData('text');
-  e.target.appendChild(document.getElementById(data));
+  e.target.append(document.getElementById(data));
 }
