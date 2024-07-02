@@ -3,14 +3,45 @@ const section = document.querySelector('section');
 const form = document.querySelector('form');
 const res = await fetch('verses.json');
 const data = await res.json();
+const signIn = document.getElementById('sign-in-form');
 let book;
 let chapter;
 let verse;
 
+signIn.addEventListener('submit', submitForm);
+async function submitForm(e) {
+  e.preventDefault();
+  console.log(e);
+  const email = document.getElementById('email');
+  const username = document.getElementById('name');
+  const data = {
+    // name: username.value,
+    email: email.value,
+  };
+  console.log(email.value);
+  await fetch(`http://localhost:3000/users/${email.value}`)
+    // await fetch('http://localhost:3000/users', {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {
+    //     'content-type': 'application/json',
+    //   },
+    //   // Need to stringify the data
+    //   body: JSON.stringify(data),
+    // })
+    .then((res) =>Promise.all([res, res.json()]))
+    .then((data) => {
+      if (data[0]){
+        document.getElementById('user').textContent = `Welcome back ${data[1].name}!`
+        document.getElementById('verse-display').classList.toggle('not-active')
+        signIn.classList.toggle('not-active')
+      }
+    });
+}
+
 function randomVerse(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
 
 async function fetchData(url = '') {
   const response = await fetch(url);
@@ -19,11 +50,11 @@ async function fetchData(url = '') {
   return verse;
 }
 
-form.addEventListener('submit', handleSubmit);
+// form.addEventListener('submit', handleSubmit);
 
 function loadRandomVerse({ book, chapter, verse } = randomVerse(data)) {
   let query = `${book} ${chapter}:${verse}`;
-  form.classList.toggle('not-active');
+  // form.classList.toggle('not-active');
   checkButtonEle.classList.toggle('not-active');
   fetchData(`https://bible-api.com/${query}`).then(display);
 }

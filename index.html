@@ -8,7 +8,24 @@
   </head>
   <body>
     <main>
-      <form action="">
+      <form id="sign-in-form">
+        <a href="#">Sign Up</a>
+        <a href="#">Sign In</a>
+        <div class="sign-up"></div>
+
+        <section class="login">
+          <label for="name">
+            <!-- <span>first name</span> -->
+            <!-- <input type="text" id="name" name="email" /> -->
+          </label>
+          <label for="email">
+            <span>Email</span>
+            <input type="text" id="email" name="name" />
+          </label>
+          <button id="sign-in">Login</button>
+        </section>
+      </form>
+      <form action="" class="not-active">
         <label for="book">
           Book
           <input type="text" name="" id="book" />
@@ -23,7 +40,8 @@
         </label>
         <button type="submit">Search</button>
       </form>
-      <section  >
+      <section class="not-active" id="verse-display">
+        <h1 id="user" class="center"></h1>
         <h2 id="verse"></h2>
         <section class="flex f-grid" id="drag-and-drop"></section>
         <section class="flex" id="verse-section"></section>

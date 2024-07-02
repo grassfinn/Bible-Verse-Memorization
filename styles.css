@@ -17,9 +17,12 @@ form {
   text-align: center;
 }
 
+#verse-section div {
+  border: 3px solid black;
+}
+
 div {
   text-align: center;
-  border: 3px solid black;
   padding: 20px;
   margin-top: 50px;
   display: flex;
@@ -71,4 +74,8 @@ div {
 
 .not-active {
   display: none;
+}
+/* general */
+.center {
+  text-align: center;
 }
