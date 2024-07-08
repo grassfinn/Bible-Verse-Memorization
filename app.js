@@ -11,7 +11,6 @@ let verse;
 signIn.addEventListener('submit', submitForm);
 async function submitForm(e) {
   e.preventDefault();
-  console.log(e);
   const email = document.getElementById('email');
   const username = document.getElementById('name');
   const data = {
@@ -29,6 +28,7 @@ async function submitForm(e) {
     //   // Need to stringify the data
     //   body: JSON.stringify(data),
     // })
+    // Check status first rather than doing both
     .then((res) =>Promise.all([res, res.json()]))
     .then((data) => {
       if (data[0]){

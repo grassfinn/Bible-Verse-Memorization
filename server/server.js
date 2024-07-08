@@ -35,7 +35,9 @@ const app = express();
 //! MiddleWare
 // reads the body
 app.use(express.json());
-app.use(express.static(join(__dirname, '../')));
+//Sending Files via serverside Server 
+// app.use(express.static(join(__dirname, '../')));
+
 app.use(cors());
 // got to tell serer to look for the files
 // https://expressjs.com/en/starter/static-files.html
@@ -67,7 +69,7 @@ app.get('/users/:email', async (req, res) => {
     res.status(500).send({ message: 'User Not Found' });
   }
 });
-
+// $gt Query status
 // POST
 app.post('/users', async (req, res) => {
   const userExists = await users.findOne({
