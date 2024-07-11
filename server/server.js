@@ -39,9 +39,16 @@ app.use(express.json());
 // app.use(express.static(join(__dirname, '../')));
 
 app.use(cors());
+// app.use(
+//   cors({
+//     origin: 'http://localhost:5500',
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type'],
+//   })
+// );
 // got to tell serer to look for the files
 // https://expressjs.com/en/starter/static-files.html
-// GET
+//! GET
 app.get('/', (req, res) => {
   // Home page
   const homePage = join(__dirname, '../index.html');
@@ -61,8 +68,6 @@ app.get('/users/:email', async (req, res) => {
   try {
     const { email } = req.params;
     const currentUser = await users.findOne({ email });
-    console.log(email)
-    console.log(currentUser);
     return res.status(200).json(currentUser);
   } catch (error) {
     console.log(error.message);
@@ -70,12 +75,12 @@ app.get('/users/:email', async (req, res) => {
   }
 });
 // $gt Query status
-// POST
+//! POST
 app.post('/users', async (req, res) => {
   const userExists = await users.findOne({
-    name: req.body.name,
-    email: req.body.email,
+    email: req.body.email
   });
+  console.log(userExists)
   try {
     // if user doesn't exist, create a user for them
     // can also make schema unique?

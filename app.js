@@ -3,40 +3,73 @@ const section = document.querySelector('section');
 const form = document.querySelector('form');
 const res = await fetch('verses.json');
 const data = await res.json();
-const signIn = document.getElementById('sign-in-form');
+const signIn = document.getElementById('sign-in');
+const signInBtn = document.getElementById('user-login');
+const signInForm = document.getElementById('sign-in-form');
+const signUp = document.getElementById('sign-up');
+
 let book;
 let chapter;
 let verse;
 
-signIn.addEventListener('submit', submitForm);
+signIn.addEventListener('click', () => {
+  if (document.querySelector('.sign-up').classList.contains('open')) return;
+  document.querySelector('.login').classList.toggle('not-active');
+  document.querySelector('.login').classList.toggle('open');
+});
+signUp.addEventListener('click', () => {
+  if (document.querySelector('.login').classList.contains('open')) return;
+  document.querySelector('.sign-up').classList.toggle('not-active');
+  document.querySelector('.sign-up').classList.toggle('open');
+});
+
+//
+signInForm.addEventListener('submit', submitForm);
 async function submitForm(e) {
   e.preventDefault();
   const email = document.getElementById('email');
   const username = document.getElementById('name');
-  const data = {
-    // name: username.value,
-    email: email.value,
-  };
-  console.log(email.value);
-  await fetch(`http://localhost:3000/users/${email.value}`)
-    // await fetch('http://localhost:3000/users', {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: {
-    //     'content-type': 'application/json',
-    //   },
-    //   // Need to stringify the data
-    //   body: JSON.stringify(data),
-    // })
-    // Check status first rather than doing both
-    .then((res) =>Promise.all([res, res.json()]))
-    .then((data) => {
-      if (data[0]){
-        document.getElementById('user').textContent = `Welcome back ${data[1].name}!`
-        document.getElementById('verse-display').classList.toggle('not-active')
-        signIn.classList.toggle('not-active')
-      }
+  const submitter = e.submitter.id;
+  console.log(submitter);
+  // Sign Up
+  if (submitter === 'sign-up') {
+    console.log('YEYE');
+    const data = {
+      name: username.value,
+      email: email.value,
+    };
+    // API Call to add email to data base
+    const res = await fetch('http://localhost:3000/users', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'content-type': 'application/json',
+      },
+      // Need to stringify the data
+      body: JSON.stringify(data),
     });
+    const message = await res.json();
+    console.log(message);
+  }
+  // Login
+  if (submitter === 'user-login') {
+    const email = document.getElementById('loginEmail');
+    await fetch(`http://localhost:3000/users/${email.value}`)
+      // Check status first rather than doing both
+      .then((res) => Promise.all([res, res.json()]))
+      .then((data) => {
+        console.log(data);
+        if (data[0]) {
+          document.getElementById(
+            'user'
+          ).textContent = `Welcome back ${data[1].name}!`;
+          // document
+          // .getElementById('verse-display')
+          // .classList.toggle('not-active');
+          // signIn.classList.toggle('not-active');
+        }
+      });
+  }
 }
 
 function randomVerse(arr) {

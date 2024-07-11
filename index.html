@@ -9,20 +9,33 @@
   <body>
     <main>
       <form id="sign-in-form">
-        <a href="#">Sign Up</a>
-        <a href="#">Sign In</a>
-        <div class="sign-up"></div>
-
+        <a id="sign-up" href="#">Sign Up</a>
+        <a id="sign-in" href="#">Sign In</a>
+        <!-- Login -->
         <section class="login not-active">
           <label for="name">
             <!-- <span>first name</span> -->
             <!-- <input type="text" id="name" name="email" /> -->
           </label>
-          <label for="email">
+          <label for="loginEmail">
             <span>Email</span>
-            <input type="text" id="email" name="name" />
+            <input type="text" id="loginEmail" name="loginEmail" />
           </label>
-          <button id="sign-in">Login</button>
+          <button id="user-login">Login</button>
+        </section>
+        <!-- Sign Up -->
+        <section class="sign-up not-active">
+          <label for="name">
+            <span>first name</span>
+            <input type="text" id="name" name="name" />
+          </label>
+          <br />
+          <label for="email">
+            <span>Enter Your Email</span>
+            <input type="text" id="email" name="email" />
+          </label>
+          <br />
+          <button id="sign-up">Create Account</button>
         </section>
       </form>
       <form action="" class="not-active">
