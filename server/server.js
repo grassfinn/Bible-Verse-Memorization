@@ -82,7 +82,7 @@ app.put('/scores', async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
-// mongoose.connect(process.env.ATLAS_URI).then(() => {
-// });
+mongoose.connect(process.env.ATLAS_URI).then(() => {
+});
 
 app.listen(3000, () => console.log('LISTENING on Port 3000'));
