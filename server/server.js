@@ -85,7 +85,5 @@ app.put('/scores', async (req, res) => {
 });
 
 mongoose.connect(process.env.ATLAS_URI).then(() => {
-  console.log('Connected to DB');
   app.listen(3000, () => console.log('LISTENING on Port 3000'));
 });
-
