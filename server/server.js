@@ -2,40 +2,24 @@ import express from 'express';
 import cors from 'cors';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
-import { users } from './models/userModel.js';
+import { Users } from './models/userModel.js';
 import mongoose from 'mongoose';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 // read json file
 //? https://simonplend.com/import-json-in-es-modules/
-import json from '../verses.json' assert { type: 'json' };
+// import json from '../verses.json' assert { type: 'json' };
 //? https://iamwebwiz.medium.com/how-to-fix-dirname-is-not-defined-in-es-module-scope-34d94a86694d
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// TODO add more detail of what should happen for each step
-
-//! APP FLOW
-// * optional features
-// Visit home page
-// User fills in name * and difficulty
-// Pull random verse
-// user fills out verse and submits
-// check if correct
-// IF correct, add point
-// IF incorrect, have them repeat again
-
-// Leaderboard section: shows top 5 people
-// * Different modes
-// allow user to search for verse
-// allow user to add own verses to randomly select from
 
 const app = express();
 
 //! MiddleWare
 // reads the body
 app.use(express.json());
-//Sending Files via serverside Server 
+//Sending Files via serverside Server
 // app.use(express.static(join(__dirname, '../')));
 
 app.use(cors());
@@ -57,8 +41,8 @@ app.get('/', (req, res) => {
 
 app.get('/users', async (req, res) => {
   try {
-    const allUsers = await users.find({});
-    return res.status(200).json({ users: allUsers });
+    const allUsers = await Users.find({});
+    return res.status(200).json(allUsers);
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
@@ -67,7 +51,7 @@ app.get('/users', async (req, res) => {
 app.get('/users/:email', async (req, res) => {
   try {
     const { email } = req.params;
-    const currentUser = await users.findOne({ email });
+    const currentUser = await Users.findOne({ email });
     return res.status(200).json(currentUser);
   } catch (error) {
     console.log(error.message);
@@ -77,19 +61,16 @@ app.get('/users/:email', async (req, res) => {
 // $gt Query status
 //! POST
 app.post('/users', async (req, res) => {
-  const userExists = await users.findOne({
-    email: req.body.email
-  });
-  console.log(userExists)
   try {
     // if user doesn't exist, create a user for them
     // can also make schema unique?
+    const userExists = await Users.findOne({
+      email: req.body.email,
+    });
     if (!userExists) {
-      const newUser = {
-        name: req.body.name,
-        email: req.body.email,
-      };
-      const user = await users.create(newUser);
+      const newUser = req.body;
+      const user = await Users.create(newUser);
+
       return res.status(200).send(user);
     }
     return res.status(500).send({ message: 'that user is already taken' });
@@ -97,13 +78,14 @@ app.post('/users', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// ! PUT
+app.put('/scores', async (req, res) => {
+  const updatedUser = await Users.findByIdAndUpdate(req.body._id, req.body);
+  res.status(200).json(updatedUser);
+});
 
-mongoose
-  // need to specify which db to connect to
-  .connect('mongodb://localhost:27017/users')
-  .then(() => {
-    console.log('Connected to DB');
+mongoose.connect(process.env.ATLAS_URI).then(() => {
+  console.log('Connected to DB');
+  app.listen(3000, () => console.log('LISTENING on Port 3000'));
+});
 
-    app.listen(3000, () => console.log('LISTENING on Port 3000'));
-  })
-  .catch((err) => console.log(err));

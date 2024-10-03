@@ -12,8 +12,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    score: Number
   },
-  { timeStamps: true }
+  { timeStamps: true },
 );
 
-export const users = mongoose.model('user', userSchema);
+export const Users = mongoose.model('user', userSchema);

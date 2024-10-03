@@ -1,0 +1,1 @@
+Instead of using count for order I numbered the array based on its number of items and used that keep track of the current item
