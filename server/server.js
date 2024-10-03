@@ -34,7 +34,7 @@ app.use(cors());
 // https://expressjs.com/en/starter/static-files.html
 //! GET
 app.get('/', (req, res) => {
-  res.send(<h1>Hello</h1>)
+  res.send('<h1>Hello</h1>')
 });
 
 app.get('/users', async (req, res) => {
