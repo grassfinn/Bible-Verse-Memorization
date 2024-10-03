@@ -19,8 +19,6 @@ const app = express();
 //! MiddleWare
 // reads the body
 app.use(express.json());
-//Sending Files via serverside Server
-// app.use(express.static(join(__dirname, '../')));
 
 app.use(cors());
 // app.use(
