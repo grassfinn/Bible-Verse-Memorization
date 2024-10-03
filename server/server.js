@@ -34,9 +34,7 @@ app.use(cors());
 // https://expressjs.com/en/starter/static-files.html
 //! GET
 app.get('/', (req, res) => {
-  // Home page
-  const homePage = join(__dirname, '../index.html');
-  res.sendFile(homePage);
+  res.send(<h1>Hello</h1>)
 });
 
 app.get('/users', async (req, res) => {
