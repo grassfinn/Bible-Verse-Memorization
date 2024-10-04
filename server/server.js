@@ -32,7 +32,7 @@ app.use(cors());
 // https://expressjs.com/en/starter/static-files.html
 //! GET
 app.get('/', (req, res) => {
-  res.send('<h1>Hello</h1>')
+  res.send('<h1>Hello</h1>');
 });
 
 app.get('/users', async (req, res) => {
@@ -81,6 +81,6 @@ app.put('/scores', async (req, res) => {
 });
 
 mongoose.connect(process.env.ATLAS_URI).then(() => {
+  console.log('DB Connected!');
+  app.listen(3000, () => console.log('LISTENING on Port 3000'));
 });
-
-app.listen(3000, () => console.log('LISTENING on Port 3000'));
