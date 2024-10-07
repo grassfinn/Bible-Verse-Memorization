@@ -1,18 +1,85 @@
-* {
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
 }
 
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+  overflow-wrap: break-word;
+}
+
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
 :root {
   --cs-white: #fff;
   --cs-black: #000;
   --cs-red: #dc3545;
   /* Box Shadows */
-  --cs-box-shadow-main: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  --cs-box-shadow-main: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
   --cs-box-shadow-sm: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   --cs-box-shadow-md: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   --cs-box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-  --cs-box-shadow-hover: 0 15px 25px rgba(0, 0, 0, .15), 0 15px 10px rgba(0, 0, 0, .05);
+  --cs-box-shadow-hover: 0 15px 25px rgba(0, 0, 0, 0.15),
+    0 15px 10px rgba(0, 0, 0, 0.05);
   --cs-box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.075);
   --cs-focus-ring-color: rgba(13, 110, 253, 0.25);
   --cs-form-valid-color: #198754;
@@ -21,9 +88,14 @@
   --cs-form-invalid-border-color: #dc3545;
   --cs-border-red: 1px solid #ff0000;
   /* Linear Gradient */
-  --cs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --cs-gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0)
+  );
   /* Fonts */
-  --cs-font-nav: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --cs-font-nav: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+    sans-serif;
   --cs-font-body: Arial, Helvetica, sans-serif;
   --cs-font-size-sm: 16px;
   --cs-font-size-md: 1.5rem;
@@ -47,128 +119,88 @@
   --clr-heading: #f5edd7;
 }
 
-body {
-  font-size: var(--cs-font-size-sm);
-  font-family: var(--cs-font-body);
-  color: var(--v2-text-secondary);
+/* General */
+* {
+  /* outline: 2px solid red; */
 }
 
-#user {
-  text-align: center;
+body,
+html {
+  min-height: 100vh;
 }
 
+.not-active {
+  display: none;
+}
+
+.container,
+.form-container,
+.footer-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
 
 .background {
-  /* background-image: url(./assets/background.jpg); */
-  background-image: url(./assets/bg.png);
-  /* background-image: url(./assets/wallpaper.jpg); */
+  background-image: url('./assets/bg.png');
+  background-color: #b07f3f;
   background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-size: cover;
 }
 
-.container {
-  max-width: 1400px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 20px 20px;
-}
-
-h3 {
-  color: var(--v2-bg);
-}
-
-#sign-in-form {
+/* Mobile */
+/* !Header */
+.form-container {
   text-align: right;
-  display: block;
 }
-
-.login,
-.sign-up {
-  display: flex;
-  justify-content: right;
-}
-
-#sign-in-container,
-#sign-up-container {
-  border: var(--v2-border);
-  width: fit-content;
-  padding: 20px;
-  background-color: var(--v2-button);
-  color: var(--v2-bg);
-  text-align: left;
-}
-
-#sign-up-container input,
-#sign-in-container input {
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-#sign-up,
-#sign-in {
-  border: 1px solid var(--v2-btn-border-color);
-  background-color: var(--v2-button);
-  line-height: 1.25;
-  color: var(--v2-border);
-  padding: 10px 20px;
+.form-btn {
+  font-size: var(--cs-font-size-md);
+  width: 130px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: var(--cs-font-size-sm);
-  cursor: pointer;
-  box-shadow: var(--cs-box-shadow-lg);
-  font-weight: 600;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  padding: 12px;
+  background-color: var(--v2-button);
+  /* border-bottom-right-radius: 5px ; */
+  /* border-bottom-left-radius: 5px; */
+  text-decoration: none;
+  color: var(--v2-accent);
 }
 
-#sign-up:hover,
-#sign-in:hover {
-  background-color: var(--v2-button-hover);
+input {
+  width: 100%;
+  margin-top: -4px;
 }
 
+.form-container {
+  position: relative;
+}
 
+.sign-up,
+.login {
+  padding: 1em;
+  margin-left: auto;
+  width: 300x;
+  background-color: var(--v2-button);
+  position: absolute;
+  right: 0;
+}
+
+.sign-up span,
+.login span,
+.sign-up input,
+.login input,
 #create-account,
 #user-login {
-  border: 1px solid var(--v2-btn-border-color);
-  background-color: var(--v2-accent);
-  line-height: 1.25;
-  border-radius: .5rem;
-  color: var(--v2-button);
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: var(--cs-font-size-sm);
-  cursor: pointer;
-  box-shadow: var(--cs-box-shadow-lg);
-  font-weight: 600;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  display: block;
+  text-align: left;
+  font-size: 1.5em;
+}
+#create-account,
+#user-login {
+  margin-top: 12px;
 }
 
-#create-account:hover,
-#user-login:hover {
-  background-color: var(--v2-button-hover);
-  border: 1px solid var(--v2-accent);
-  color: var(--v2-bg);
-}
-
-h2 {
-  margin: 10px;
-  text-align: center;
-  font-size: 2em;
-}
-
-form {
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* ---------- CONTAINER for TOP-DISPLAY ---------- */
-#top-display {
-  display: flex;
-}
+/* !Main */
 
 #cross {
   --s: 250px;
@@ -180,330 +212,193 @@ form {
   margin: 0 auto;
   width: var(--s);
   aspect-ratio: 0;
-  padding-block-start: calc(var(--s)/5);
+  padding-block-start: calc(var(--s) / 5);
   cursor: pointer;
   border-radius: 10 0 999px 999px;
-  background: radial-gradient(circle closest-side,
+  background: radial-gradient(
+      circle closest-side,
       var(--cross-bg) calc(99% - var(--b)),
       var(--c) calc(100% - var(--b)) 99%,
-      #0000) var(--_g);
-  transform: scale(var(--f));
-  transition: .5s;
-  position: relative;
+      #0000
+    )
+    var(--_g);
+  /* transform: scale(var(--f)); */
+  /* transition: 0.5s; */
+  /* position: relative; */
   z-index: 0;
-  margin-bottom: -50px;
+  padding: 0;
+  position: relative;
+  z-index: -1;
 }
-
-#cross:hover {
-  --f: 1.55;
-}
-
-/* Score and Time Containers: Hidden until start game */
-#score-container,
-#time-container {
-  align-self: flex-end;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
-
-#score-container label,
-#time-container label {
-  color: var(--v2-btn-border-color);
-  font-weight: 600;
-  font-size: var(--cs-font-size-md);
-}
-
-#score,
-#time {
-  background-color: var(--v2-button);
-  height: 50px;
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: var(--v2-button);
-  color: var(--v2-bg);
-  font-size: var(--cs-font-size-lg);
-  box-shadow: var(--cs-box-shadow-lg);
-  border-radius: 5px;
-}
-
-
-/* ---------- CONTAINER for MIDDLE-DISPLAY ---------- */
+/* !Middle */
 #middle-display {
-  height: fit-content;
   background-color: var(--v2-accent);
   border-radius: 8px;
-  position: relative;
-  z-index: 1;
-}
-
-
-
-.verse-section{
-  position: relative;
-  display: flex;
-}
- .verse-section span {
-  position: absolute;
-  color: #198754;
-  top: -5%;
-  left: 94%;
- }
-
-div {
-  text-align: center;
-  padding: 20px 40px;
-  /* margin-top: 20px; */
-  display: flex;
-  flex-wrap: wrap;
-  align-items: bottom;
-  justify-content: center;
-}
-
-p {
+  padding: 20px;
+  align-content: center;
+  margin: 0 auto;
+  /* Turn on in desktop view */
+  /* display: none; */
+  height: 250px;
   width: 100%;
+  font-size: 1.2em;
 }
 
 #drag-and-drop {
-  border: var(--v2-accent);
   display: none;
-
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  column-gap: 20px;
-  padding: 0px 15px 20px 15px;
+#check {
+  font-size: 2em;
+  padding: 0.2em;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5em 1.5em;
+  margin-top: 12px;
+  background-color: var(--v2-button);
 }
 
 .droppable {
   text-align: center;
   transition: 1s;
-  margin-top: 20px;
   box-shadow: var(--v2-container-box-shadow);
   background-color: rgba(255, 255, 255, 0.271);
+  height: 50px;
+  width: 300px;
+  align-content: center;
+  margin: 0 auto;
+}
+.droppable p {
+  text-align: center;
 }
 
-.first-name::first-letter {
-  text-transform: uppercase;
+/*  */
+#main-display,
+#instructions-display,
+#scores-display {
+  text-align: center;
+  text-wrap: pretty;
+}
+#instructions-display,
+#scores-display {
+  display: none;
 }
 
-.nav-btn {
+#main-display {
   font-size: 2rem;
 }
 
-#settings-display,
-#scores-display,
-#exit-display,
-#instructions-display {
-  display: none;
-}
-
-#scores-display,
-#instructions-display {
-  text-align: center;
-  padding: 50px;
-  flex-direction: column;
-  gap: 40px;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Initial Home Screen */
-#main-display {
-  flex-direction: column;
-  gap: 40px;
-  align-items: center;
-  padding-top: 30px;
-  padding-bottom: 40px;
-}
-
-#main-display h3 {
-  font-size: var(--cs-font-size-xxlg);
-  text-transform: uppercase;
-  text-shadow: 2px 2px 4px var(--v2-text-primary);
-  letter-spacing: .25rem;
-  box-shadow: var(--v2-container-box-shadow);
-  background-color: rgba(255, 255, 255, 0.271);
-  border: 1px solid #dcbd93;
-  border-radius: 5px;
-  padding: .75rem 2rem;
-  margin: 0px 10px;
-  text-align: center;
-}
-
-#start-game {
-  border: 1px solid var(--v2-btn-border-color);
+#start-game,
+#check {
+  padding: 0.5em 1em;
+  border-radius: 16px;
+  color: white;
+  font-weight: 900;
   background-color: var(--v2-button);
-  border-radius: .5rem;
-  color: var(--v2-bg);
-  display: block;
-  font-size: var(--cs-font-size-lg);
-  font-weight: 600;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid var(--v2-btn-border-color);
-  box-shadow: var(--cs-box-shadow-main);
-  transition: color .15s ease-in-out,
-    background-color .15s ease-in-out,
-    border-color .15s ease-in-out,
-    box-shadow .15s ease-in-out;
 }
 
-#start-game:hover {
+#start-game:hover,
+#check:hover {
   background-color: var(--v2-button-hover);
 }
 
-
-/*---------- CONTAINER for BOTTOM-DISPLAY ----------*/
+/* ! Bottom */
 #bottom-display {
-  display: flex;
-  justify-content: center;
-  margin-top: 80px;
-}
-
-/* Bottom Navigation Menu - Is displayed (flex) until game starts and then is hidden */
-#bottom-nav {
   text-align: center;
-  /* display: flex; */
-  /* justify-content: center; */
-  gap: 10px;
-  width: 100vw;
-  position: fixed;
+  position: absolute;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#bottom-nav {
+  display: flex;
+  gap: 16px;
 }
 
 .nav-btn {
-  height: 100px;
-  width: 100px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border: none;
-  background-color: var(--v2-button)
+  font-size: 1.5em;
+  border-radius: 15px;
+  background-color: var(--v2-button);
+  padding: 0.8em;
+  width: 100%;
 }
-
-.nav-btn:hover {
-  transform: scale(1.25);
-  cursor: pointer;
-}
-
-.nav-btn i {
-  font-size: var(--cs-font-size-lg);
-  color: var(--v2-border);
-}
-
-/* Bottom Verses Display Section - Is hidden until game starts and then is displayed (flex) */
 #bottom-verses {
-  display: none;
-  flex-direction: column;
-  gap: 2rem;
+  display: block;
+  text-align: center;
 }
 
 #verse-section {
-  width: 100%;
-}
-
-.verse-section {
-  color: var(--v2-text-secondary);
-  font-weight: 600;
-  align-items: center;
-  font-size: var(--cs-font-size-md);
-  background-color: transparent;
-}
-
-.verse-section:hover {
-  box-shadow: var(--cs-box-shadow-hover);
-  cursor: pointer;
-}
-
-
-.flex {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-
-.check,
-.reset {
-  border: 1px solid var(--v2-btn-border-color);
-  background-color: var(--v2-button);
-  line-height: 1.25;
-  border-radius: .5rem;
-  color: var(--v2-bg);
-  display: block;
-  font-size: var(--cs-font-size-xlg);
-  font-weight: 600;
-  padding: 5px 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid var(--v2-border);
-  box-shadow: var(--cs-box-shadow-lg);
-  transition: color .15s ease-in-out,
-    background-color .15s ease-in-out,
-    border-color .15s ease-in-out,
-    box-shadow .15s ease-in-out;
-}
-
-
-.check:hover,
-.reset:hover {
-  background-color: var(--v2-button-hover);
-}
-
-.reset {
-  background-color: lightsalmon;
-  border-radius: 20px;
-  box-shadow: 2px 2px;
-}
-
-.not-active {
+  grid-template-columns: 1fr 1fr;
   display: none;
 }
 
-
-
-/* Media Query */
-@media screen and (max-width: 1200px) {
-  .grid {
-    grid-template-columns: auto auto;
-  }
+.verse-section {
+  position: relative;
+  padding: 1em;
+  width: 200px;
+  height: 150px;
+  margin: 0 auto;
+  align-content: center;
+  text-align: center;
+  text-wrap: pretty;
+  border-radius: 8px;
+  border: 4px solid black;
+  margin-top: 12px;
 }
 
-@media screen and (max-width: 750px) {
+.verse-section span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2rem;
+  font-weight: 900;
+  color: green;
+}
+/* !Footer */
+/* Desktop */
+@media (min-width: 1000px) {
+  #cross {
+    position: relative;
+    z-index: -1;
+    margin-top: -60px;
+  }
+
+  #middle-display {
+    display: block;
+    height: 300px;
+    align-content: center;
+    padding: 0;
+  }
+  #drag-and-drop {
+    display: none;
+    align-items: center;
+  }
   .grid {
-    grid-template-columns: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  #bottom-verses {
+    display: block;
   }
 
   #verse-section {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
   }
 
   .verse-section {
-    border: 5px solid black;
-    width: 250px;
-    padding: .5em .8em;
-
-  }
-}
-
-@media screen and (max-width: 500px) {
-  #cross {
-    --s: 150px;
-  }
-}
-
-@media screen and (max-height: 780px) {
-  #bottom-nav {
-    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    width: 300px;
+    height: 50px;
+    max-width: 300px;
+    border-radius: 0;
+    border: 1px solid black;
   }
 }
