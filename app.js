@@ -10,6 +10,13 @@ import {
 } from './utils.js';
 import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
+  // TODO
+  // ? MAJOR
+  // Allow 5 times a day
+
+  // ? MINOR
+  // Styling
+  // Timer
   const res = await fetch('verses.json');
   const data = await res.json();
 
@@ -20,12 +27,14 @@ window.addEventListener('load', async (e) => {
     mode = 'desktop';
   }
   const checkButtonEle = document.querySelector('#check');
+  const section = document.querySelector('section');
   let book;
   let chapter;
   // let verse;
   const instructions = document.getElementById('instructions');
   const main = document.getElementById('main');
   const scores = document.getElementById('scores');
+  const middleDisplay = document.getElementById('middle-display');
   const dragAndDrop = document.getElementById('drag-and-drop');
   const instructionsDisplay = document.getElementById('instructions-display');
   const mainDisplay = document.getElementById('main-display');
@@ -36,9 +45,8 @@ window.addEventListener('load', async (e) => {
 
   const verse =
     '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.';
-  const verseArr = verse.split(' ');
-
-  const chunks = chunkWithMinSize(verseArr, 4, 3);
+  const chunks = chunkWithMinSize(verse.split(' '), 4, 3);
+  console.log(chunks);
   const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
 
@@ -47,6 +55,7 @@ window.addEventListener('load', async (e) => {
   const verseChunks = document.getElementsByClassName('verse-chunk');
 
   function display(verse) {
+    console.log(verse);
     const h2 = document.querySelector('h2');
     const verseSplit = verse.split(' ');
     const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
@@ -55,22 +64,20 @@ window.addEventListener('load', async (e) => {
     h2.textContent = verse.reference;
     shuffledChunkedVerse.map((section, index) => {
       const div = document.createElement('div');
-      const div2 = document.createElement('div');
       const span = document.createElement('span');
       const p = document.createElement('p');
       const dragAndDropEle = document.getElementById('drag-and-drop');
       const versionSectionEle = document.getElementById('verse-section');
       div.classList.add('verse-chunk');
       dragAndDropEle.appendChild(div);
-      versionSectionEle.append(div2);
-      div2.append(p);
+      versionSectionEle.append(p);
       span.id;
       p.textContent = section;
       p.append(span);
       div.classList.add('droppable');
       div.id = `drop-${index}`;
       if (mode === 'mobile') {
-        div2.addEventListener('click', handleSelect);
+        p.addEventListener('click', handleSelect);
       } else {
         div.addEventListener('drop', handleDrop);
         div.addEventListener('dragover', allowDrop);
@@ -102,6 +109,7 @@ window.addEventListener('load', async (e) => {
   function updateScore(arr) {
     // NodeLists are not arrays
     const convertedArr = [...arr];
+    console.log(convertedArr[0].style.backgroundColor);
     convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
         incrementScore();
@@ -115,6 +123,7 @@ window.addEventListener('load', async (e) => {
   //! https://www.w3schools.com/html/html5_draganddrop.asp
 
   function handleSelect(e) {
+    console.log(e);
     if (e.target.classList[0] === 'verse-section') {
       if (e.target.classList.contains('selected')) {
         const currentItem = +e.target.id;
@@ -133,10 +142,8 @@ window.addEventListener('load', async (e) => {
     }
   }
 
-  mainDisplay.style.display = 'flex';
-
   main.onclick = function () {
-    mainDisplay.style.display = 'flex';
+    mainDisplay.style.display = 'block';
     dragAndDrop.style.display = 'none';
     instructionsDisplay.style.display = 'none';
     scoresDisplay.style.display = 'none';
@@ -154,7 +161,7 @@ window.addEventListener('load', async (e) => {
     dragAndDrop.style.display = 'none';
     instructionsDisplay.style.display = 'none';
     mainDisplay.style.display = 'none';
-    fetchScores('https://bible-verse-memorization.onrender.com/users');
+    fetchScores('http://localhost:3000/users');
   };
 
   function createLeaderboard(arr) {
@@ -178,21 +185,22 @@ window.addEventListener('load', async (e) => {
   }
 
   startGameBtn.onclick = function () {
+    const bottomDisplay = document.getElementById('bottom-display');
+    const verseSection = document.getElementById('verse-section');
     checkButtonEle.classList.toggle('not-active');
-    bottomNav.classList.toggle('not-active');
+    bottomDisplay.classList.toggle('not-active');
     if (mode === 'mobile') {
       dragAndDrop.style.display = 'none';
       mainDisplay.style.display = 'none';
+      middleDisplay.style.display = 'none';
       bottomVerses.style.display = 'grid';
+      verseSection.style.display = 'block';
     }
 
     if (mode === 'desktop') {
-      // dragAndDrop.style.display = 'block';
       mainDisplay.style.display = 'none';
       dragAndDrop.style.display = 'grid';
-      bottomVerses.style.display = 'flex';
+      verseSection.style.display = 'grid';
     }
-
-    bottomNav.style.display = 'none';
   };
 });
