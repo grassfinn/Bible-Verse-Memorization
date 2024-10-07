@@ -10,22 +10,18 @@ import {
 } from './utils.js';
 import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
-  // TODO
-  // ? MAJOR
-  // Allow 5 times a day
-
-  // ? MINOR
-  // Styling
-  // Timer
   const res = await fetch('verses.json');
   const data = await res.json();
 
   let mode;
-  if (window.innerWidth <= 750) {
-    mode = 'mobile';
-  } else {
-    mode = 'desktop';
-  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 750) {
+      mode = 'mobile';
+    } else {
+      mode = 'desktop';
+    }
+  });
+
   const checkButtonEle = document.querySelector('#check');
   const section = document.querySelector('section');
   let book;
