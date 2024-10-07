@@ -4,71 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VerseVault</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
   </head>
 
   <body class="background">
+    <header>
+      <form id="sign-in-form">
+        <div class="form-container">
+          <div>
+            <a id="sign-up" class="form-btn" href="#">Sign Up</a>
+            <a id="sign-in" class="form-btn" href="#">Sign In</a>
+          </div>
+          <!-- Login -->
+          <div>
+            <section class="login not-active">
+              <label for="name"> </label>
+              <section id="sign-in-container">
+                <label for="loginEmail">
+                  <span>Email</span>
+                  <input
+                    type="text"
+                    id="loginEmail"
+                    name="loginEmail"
+                    value="test@gmail.com"
+                  />
+                </label>
+                <button id="user-login" type="submit">Login</button>
+              </section>
+            </section>
+            <!-- Sign Up -->
+            <section class="sign-up not-active">
+              <section id="sign-up-container">
+                <label for="name">
+                  <span>First name</span>
+                  <input type="text" id="name" name="name" value="andrew" />
+                </label>
+                <br />
+                <label for="email">
+                  <span>Enter your email</span>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    value="test@gmail.com"
+                  />
+                </label>
+                <br />
+                <button type="submit" id="create-account">
+                  Create Account
+                </button>
+              </section>
+            </section>
+          </div>
+        </div>
+      </form>
+    </header>
     <!-- Main Section -->
     <main class="container">
-      <form id="sign-in-form">
-        <a id="sign-up" href="#">Sign Up</a>
-        <a id="sign-in" href="#">Sign In</a>
-        <!-- Login -->
-        <section class="login not-active">
-          <label for="name">
-          </label>
-          <section id="sign-in-container">
-            <label for="loginEmail">
-              <span>Email:</span>
-              <input
-                type="text"
-                id="loginEmail"
-                name="loginEmail"
-                value="test@gmail.com"
-              />
-            </label>
-            <button id="user-login" type="submit">Login</button>
-          </section>
-        </section>
-        <!-- Sign Up -->
-        <section class="sign-up not-active">
-          <section id="sign-up-container">
-            <label for="name">
-              <span>First name:</span>
-              <input type="text" id="name" name="name" value="andrew" />
-            </label>
-            <br />
-            <label for="email">
-              <span>Enter your email:</span>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                value="test@gmail.com"
-              />
-            </label>
-            <br />
-            <button type="submit" id="create-account">Create Account</button>
-          </section>
-        </section>
-      </form>
       <h1 id="user"></h1>
-      <form class="not-active">
-        <label for="book">
-          Book
-          <input type="text" name="" id="book" />
-        </label>
-        <label for="chapter">
-          Chapter
-          <input type="text" name="" id="chapter" />
-        </label>
-        <label for="verse">
-          Verse(s)
-          <input type="text" name="" id="verse" />
-        </label>
-        <button type="submit">Search</button>
-      </form>
       <!-- VERSE DISPLAY SECTION -->
       <section class="" id="verse-display">
         <section>
@@ -77,84 +72,63 @@
         </section>
 
         <!-- CONTAINER: TOP DISPLAY -->
-        <section id="top-display">
-          
-          <img src="./assets/cross-bg.png" alt="cross" id="cross" />
-          
-        </section>
+        <div class="flex-col">
+          <!-- 1 -->
+          <section id="top-display">
+            <img src="./assets/cross-bg.png" alt="cross" id="cross" />
+          </section>
 
-        <!-- CONTAINER: MIDDLE DISPLAY -->
-        <section id="middle-display">
-          <!-- Settings Section: Hidden until button click -->
-          <section id="settings-display">
-            <section>
-              <button type="button" class="settings-btn">
-                <i class="bi bi-music-note-beamed"></i>
-              </button>
-              <button type="button" class="settings-btn">
-                <i class="bi bi-volume-mute-fill"></i>
-              </button>
+          <!-- CONTAINER: MIDDLE DISPLAY -->
+          <!-- 2 -->
+          <section id="middle-display">
+            <!-- Settings Section: Hidden until button click -->
+
+            <section id="instructions-display">
+              <p>
+                Select/drag and drop the verse pieces to complete the verse.
+                Correct sections will be green while incorrect sections will be
+                red. Create an account and sign in if you want your score to be
+                recorded and shown in the leaderboard.
+              </p>
             </section>
-          </section>
-          <section id="instructions-display">
-            <p>
-              Select/drag and drop the verse pieces to complete the verse.
-              Correct sections will be green while incorrect sections will be
-              red. Create an account and sign in if you want your score to be
-              recorded and shown in the leaderboard.
-            </p>
-            <!-- add github link and persevere link -->
-            <br />
-            <p>
-              This product was created by
-              <span><a href="#">Andrew Harper</a></span> and
-              <span><a href="#">Perservere</a></span> student Sean Stern
-            </p>
-          </section>
-          <!-- Main/Home/Start Display Section -->
-          <section id="main-display">
-            <h3>VerseVault</h3>
-            <button type="button" id="start-game">Start</button>
-          </section>
-          <!-- Drag and Drop Section: Hidden until button click -->
-          <section class="grid" id="drag-and-drop"></section>
-          <!-- Score Section: Hidden until button click -->
-          <section id="scores-display">SCORES HERE</section>
-        </section>
-
-        <!-- CONTAINER: BOTTOM DISPLAY -->
-        <section id="bottom-display">
-          <!-- CONTAINER for Bottom Navigation -->
-          <section id="bottom-nav">
-            <button type="button" class="nav-btn" id="instructions">
-              ❔
-              <!-- <i class="bi bi-info-lg"></i> -->
-            </button>
-            <button type="button" class="nav-btn" id="main">
-              ▶️
-              <!-- <i class="bi bi-list"></i> -->
-            </button>
-            <button type="button" class="nav-btn" id="scores">
-              📋
-              <!-- <i class="bi bi-star-fill"></i> -->
-            </button>
+            <!-- Main/Home/Start Display Section -->
+            <section id="main-display">
+              <h3>VerseVault</h3>
+              <button type="button" id="start-game">Start</button>
+            </section>
+            <!-- Drag and Drop Section: Hidden until button click -->
+            <section class="grid" id="drag-and-drop"></section>
+            <!-- Score Section: Hidden until button click -->
+            <section id="scores-display">SCORES HERE</section>
           </section>
 
+          <!-- CONTAINER: BOTTOM DISPLAY -->
+          <!-- 3 -->
           <!-- CONTAINER for Verse Chunks and Check Button...display is hidden -->
           <section id="bottom-verses">
             <!-- Verse Chunks Section -->
             <section class="flex" id="verse-section"></section>
             <!-- Check Button -->
-            <section class="flex">
               <button type="button" class="not-active check" id="check">
                 Check
-              </button>
             </section>
           </section>
-        </section>
+          <!-- 4 -->
+          <section id="bottom-display">
+            <!-- CONTAINER for Bottom Navigation -->
+            <section id="bottom-nav">
+              <button type="button" class="nav-btn" id="instructions">❔</button>
+              <button type="button" class="nav-btn" id="main">▶️</button>
+              <button type="button" class="nav-btn" id="scores">📋</button>
+            </section>
+          </section>
+        </div>
       </section>
     </main>
 
+    <footer>
+      <div class="footer-container"></div>
+    </footer>
     <script type="module" src="./app.js"></script>
     <script type="module" src="./form.js"></script>
   </body>
