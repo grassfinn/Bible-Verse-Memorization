@@ -1,10 +1,19 @@
-import { chunkWithMinSize, randomVerse, loadRandomVerse, shuffle, handleDrag, allowDrop, handleDrop, checkVerse, } from "./utils.js";
-import { incrementScore } from "./form.js";
+import {
+  chunkWithMinSize,
+  randomVerse,
+  loadRandomVerse,
+  shuffle,
+  handleDrag,
+  allowDrop,
+  handleDrop,
+  checkVerse,
+} from './utils.js';
+import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
   // TODO
   // ? MAJOR
   // Allow 5 times a day
-  
+
   // ? MINOR
   // Styling
   // Timer
@@ -13,46 +22,40 @@ window.addEventListener('load', async (e) => {
 
   let mode;
   if (window.innerWidth <= 750) {
-    mode = 'mobile'
-  }
-  else {
-    mode = 'desktop'
+    mode = 'mobile';
+  } else {
+    mode = 'desktop';
   }
   const checkButtonEle = document.querySelector('#check');
   const section = document.querySelector('section');
   let book;
   let chapter;
   // let verse;
-  const settings = document.getElementById('settings');
   const instructions = document.getElementById('instructions');
   const main = document.getElementById('main');
   const scores = document.getElementById('scores');
-  const exit = document.getElementById('exit');
   const middleDisplay = document.getElementById('middle-display');
   const dragAndDrop = document.getElementById('drag-and-drop');
-  const settingsDisplay = document.getElementById('settings-display');
   const instructionsDisplay = document.getElementById('instructions-display');
   const mainDisplay = document.getElementById('main-display');
   const scoresDisplay = document.getElementById('scores-display');
-  const exitDisplay = document.getElementById('exit-display');
   const bottomVerses = document.getElementById('bottom-verses');
   const bottomNav = document.getElementById('bottom-nav');
-  const scoreContainer = document.getElementById('score-container');
-  const timeContainer = document.getElementById('time-container');
   const startGameBtn = document.getElementById('start-game');
 
-  const verse = '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.'
-  const chunks = chunkWithMinSize(verse.split(' '), 4, 3)
-  console.log(chunks)
-  const order = chunks.map((_, i) => i + 1)
+  const verse =
+    '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.';
+  const chunks = chunkWithMinSize(verse.split(' '), 4, 3);
+  console.log(chunks);
+  const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
 
-  display(verse)
+  display(verse);
 
-  const verseChunks = document.getElementsByClassName('verse-chunk')
+  const verseChunks = document.getElementsByClassName('verse-chunk');
 
   function display(verse) {
-    console.log(verse)
+    console.log(verse);
     const h2 = document.querySelector('h2');
     const verseSplit = verse.split(' ');
     const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
@@ -61,24 +64,21 @@ window.addEventListener('load', async (e) => {
     h2.textContent = verse.reference;
     shuffledChunkedVerse.map((section, index) => {
       const div = document.createElement('div');
-      const div2 = document.createElement('div')
-      const span = document.createElement('span')
+      const span = document.createElement('span');
       const p = document.createElement('p');
       const dragAndDropEle = document.getElementById('drag-and-drop');
       const versionSectionEle = document.getElementById('verse-section');
-      div.classList.add('verse-chunk')
-      dragAndDropEle.appendChild(div)
-      versionSectionEle.append(div2);
-      div2.append(p);
-      span.id
+      div.classList.add('verse-chunk');
+      dragAndDropEle.appendChild(div);
+      versionSectionEle.append(p);
+      span.id;
       p.textContent = section;
-      p.append(span)
+      p.append(span);
       div.classList.add('droppable');
       div.id = `drop-${index}`;
       if (mode === 'mobile') {
-        div2.addEventListener('click', handleSelect)
-      }
-      else {
+        p.addEventListener('click', handleSelect);
+      } else {
         div.addEventListener('drop', handleDrop);
         div.addEventListener('dragover', allowDrop);
       }
@@ -94,69 +94,56 @@ window.addEventListener('load', async (e) => {
 
   function handleClick() {
     const droppableEle = document.querySelectorAll('.droppable');
-      const selectedEle = document.querySelectorAll('.selected');
-      bottomNav.classList.toggle('not-active')
+    const selectedEle = document.querySelectorAll('.selected');
+    bottomNav.classList.toggle('not-active');
     if (mode === 'mobile') {
-      checkVerse(mode, selectedEle, chunks)
-      updateScore(selectedEle)
+      checkVerse(mode, selectedEle, chunks);
+      updateScore(selectedEle);
     }
     if (mode === 'desktop') {
-      checkVerse(mode, droppableEle, chunks)
-      updateScore(droppableEle)
+      checkVerse(mode, droppableEle, chunks);
+      updateScore(droppableEle);
     }
   }
 
   function updateScore(arr) {
     // NodeLists are not arrays
-    const convertedArr = [...arr]
-    console.log(convertedArr[0].style.backgroundColor)
-    convertedArr.every(item => {
+    const convertedArr = [...arr];
+    console.log(convertedArr[0].style.backgroundColor);
+    convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
-        incrementScore()
+        incrementScore();
         // Update score
       }
-    })
+    });
   }
-
 
   // create the drag a drop items via shuffled array
   // check if the user put verse in the correct order by comparing it to the original verse
   //! https://www.w3schools.com/html/html5_draganddrop.asp
 
   function handleSelect(e) {
-    console.log(e)
+    console.log(e);
     if (e.target.classList[0] === 'verse-section') {
       if (e.target.classList.contains('selected')) {
-        const currentItem = +e.target.id
+        const currentItem = +e.target.id;
         // Remove from the index of the item in the array
-        e.target.classList.toggle('selected')
-        e.target.children[0].textContent = ''
-        e.target.removeAttribute('id')
-        order.unshift(currentItem)
-        order.sort()
-        return
+        e.target.classList.toggle('selected');
+        e.target.children[0].textContent = '';
+        e.target.removeAttribute('id');
+        order.unshift(currentItem);
+        order.sort();
+        return;
       }
-      e.target.classList.toggle('selected')
-      const currentOrder = order.shift()
-      e.target.children[0].textContent = currentOrder
-      e.target.id = currentOrder
+      e.target.classList.toggle('selected');
+      const currentOrder = order.shift();
+      e.target.children[0].textContent = currentOrder;
+      e.target.id = currentOrder;
     }
   }
 
-  // Create a light and dark mode.
-  // const toggleButton = document.getElementById("toggle-button");
-
-  // toggleButton.addEventListener('click', () => {
-  //     document.documentElement.classList.toggle("light-theme");
-  //     let theme = document.getElementById("theme");
-  //     theme.classList.toggle("fa-sun-o");
-  //     theme.classList.toggle("fa-moon-o");
-  // });
-
-  mainDisplay.style.display = 'flex';
-
   main.onclick = function () {
-    mainDisplay.style.display = 'flex';
+    mainDisplay.style.display = 'block';
     dragAndDrop.style.display = 'none';
     instructionsDisplay.style.display = 'none';
     scoresDisplay.style.display = 'none';
@@ -174,46 +161,46 @@ window.addEventListener('load', async (e) => {
     dragAndDrop.style.display = 'none';
     instructionsDisplay.style.display = 'none';
     mainDisplay.style.display = 'none';
-    fetchScores('http://localhost:3000/users')
+    fetchScores('http://localhost:3000/users');
   };
 
   function createLeaderboard(arr) {
-    arr.sort((user1,user2) => user2.score - user1.score)
-    return arr.map(user => {
-      return `
+    arr.sort((user1, user2) => user2.score - user1.score);
+    return arr
+      .map((user) => {
+        return `
       <div class='user-score'>
         <span class='first-name'>${user.name}:</span><span>${user.score}</>
       </div>
-      `
-    }).join('')
+      `;
+      })
+      .join('');
   }
 
   async function fetchScores(db) {
-    const scoresDisplayEle = document.querySelector('#scores-display')
-    const res = await fetch(db)
-    const data = await res.json()
-    scoresDisplayEle.innerHTML = createLeaderboard(data)
+    const scoresDisplayEle = document.querySelector('#scores-display');
+    const res = await fetch(db);
+    const data = await res.json();
+    scoresDisplayEle.innerHTML = createLeaderboard(data);
   }
 
   startGameBtn.onclick = function () {
-    checkButtonEle.classList.toggle('not-active')
-    bottomNav.classList.toggle('not-active')
+    const bottomDisplay = document.getElementById('bottom-display');
+    const verseSection = document.getElementById('verse-section');
+    checkButtonEle.classList.toggle('not-active');
+    bottomDisplay.classList.toggle('not-active');
     if (mode === 'mobile') {
       dragAndDrop.style.display = 'none';
       mainDisplay.style.display = 'none';
+      middleDisplay.style.display = 'none';
       bottomVerses.style.display = 'grid';
+      verseSection.style.display = 'block';
     }
 
     if (mode === 'desktop') {
-      // dragAndDrop.style.display = 'block';
       mainDisplay.style.display = 'none';
       dragAndDrop.style.display = 'grid';
-      bottomVerses.style.display = 'flex';
+      verseSection.style.display = 'grid';
     }
-    
-    bottomNav.style.display = 'none';
-    scoreContainer.style.display = 'flex';
-    timeContainer.style.display = 'flex';
-  }
-
-})
+  };
+});
