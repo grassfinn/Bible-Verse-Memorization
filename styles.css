@@ -126,7 +126,8 @@ span {
 
 body,
 html {
-  min-height: 100vh;
+  min-height: 100svh;
+  /* min-height: -webkit-fill-available */
 }
 
 .not-active {
@@ -235,13 +236,13 @@ input {
   background-color: var(--v2-accent);
   border-radius: 8px;
   padding: 20px;
-  align-content: center;
   margin: 0 auto;
   /* Turn on in desktop view */
   /* display: none; */
   height: 250px;
   width: 100%;
   font-size: 1.2em;
+  position: relative;
 }
 
 #drag-and-drop {
@@ -286,9 +287,13 @@ input {
 #scores-display {
   display: none;
 }
+#scores-display {
+}
 
 #main-display {
   font-size: 2rem;
+  margin-top: -25px;
+
 }
 
 #start-game,
@@ -311,20 +316,32 @@ input {
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%);
+  width: 100%;
 }
 #bottom-nav {
   display: flex;
-  gap: 16px;
 }
 
 .nav-btn {
   font-size: 1.5em;
-  border-radius: 15px;
   background-color: var(--v2-button);
   padding: 0.8em;
   width: 100%;
+  border: none;
 }
+.nav-btn:hover{
+  background-color: var(--v2-button-hover);
+}
+
+.nav-btn:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.nav-btn:last-child {
+  border-bottom-right-radius: 8px;
+}
+
 #bottom-verses {
   display: block;
   text-align: center;
@@ -347,6 +364,14 @@ input {
   border-radius: 8px;
   border: 4px solid black;
   margin-top: 12px;
+}
+
+.verse-section:hover {
+  box-shadow: var(--cs-box-shadow-main);
+  cursor: grab;
+}
+.verse-section:active {
+  cursor: grabbing;
 }
 
 .verse-section span {
@@ -372,6 +397,20 @@ input {
     align-content: center;
     padding: 0;
   }
+
+  #instructions-display,
+  #scores-display {
+    display: none;
+    max-width: 70%;
+    margin: 0 auto;
+    margin-top: -80px;
+  }
+
+  #main-display {
+    font-size: 2rem;
+    margin-top: -145px;
+  }
+
   #drag-and-drop {
     display: none;
     align-items: center;
