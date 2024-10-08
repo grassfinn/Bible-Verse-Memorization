@@ -7,7 +7,6 @@ import {
   allowDrop,
   handleDrop,
   checkVerse,
-  setMode,
 } from './utils.js';
 import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
