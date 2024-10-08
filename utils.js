@@ -76,10 +76,4 @@ export function checkVerse(mode, element, arr) {
   });
 }
 
-export function setMode() {
-  if (window.innerWidth <= 750) {
-    mode = 'mobile';
-  } else {
-    mode = 'desktop';
-  }
-}
+

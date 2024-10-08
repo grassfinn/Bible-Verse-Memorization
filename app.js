@@ -18,6 +18,14 @@ window.addEventListener('load', async (e) => {
   setMode();
   window.addEventListener('resize', setMode);
 
+  function setMode() {
+    if (window.innerWidth <= 750) {
+      mode = 'mobile';
+    } else {
+      mode = 'desktop';
+    }
+  }
+
   const checkButtonEle = document.querySelector('#check');
   const section = document.querySelector('section');
   let book;
