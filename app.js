@@ -160,7 +160,7 @@ window.addEventListener('load', async (e) => {
     dragAndDrop.style.display = 'none';
     instructionsDisplay.style.display = 'none';
     mainDisplay.style.display = 'none';
-    fetchScores('http://localhost:3000/users');
+    fetchScores('https://bible-verse-memorization.onrender.com/users');
   };
 
   function createLeaderboard(arr) {
