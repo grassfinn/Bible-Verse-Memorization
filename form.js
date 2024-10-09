@@ -69,7 +69,7 @@ async function submitForm(e) {
   // Login
   if (submitter === 'user-login') {
     const email = document.getElementById('loginEmail');
-    localStorage.setItem('user', email);
+    localStorage.setItem('user', email.value);
 
     await fetch(
       `https://bible-verse-memorization.onrender.com/users/${email.value}`
