@@ -178,12 +178,14 @@ window.addEventListener('load', async (e) => {
     const form = document.getElementById('sign-in-form');
     const middleDisplay = document.getElementById('middle-display');
     const bottomVerses = document.getElementById('bottom-verses');
-
     const bottomDisplay = document.getElementById('bottom-display');
     const verseSection = document.getElementById('verse-section');
+    
     display(verse);
 
-    form.style.visibility = 'hidden';
+    if (form) {
+      form.style.visibility = 'hidden';
+    }
     checkButtonEle.classList.toggle('not-active');
     bottomDisplay.classList.toggle('not-active');
     if (mode === 'mobile') {

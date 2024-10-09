@@ -167,6 +167,10 @@ html {
   color: var(--v2-accent);
 }
 
+#user {
+  text-align: center;
+}
+
 input {
   width: 100%;
   margin-top: -4px;
@@ -176,14 +180,20 @@ input {
   position: relative;
 }
 
+.sign-up {
+  position: relative;
+  z-index: 1;
+  height: 300px;
+}
+
 .sign-up,
 .login {
   padding: 1em;
   margin-left: auto;
-  width: 300x;
   background-color: var(--v2-button);
   position: absolute;
   right: 0;
+  color: white;
 }
 
 .sign-up span,
@@ -293,7 +303,6 @@ input {
 #main-display {
   font-size: 2rem;
   margin-top: -25px;
-
 }
 
 #start-game,
@@ -330,7 +339,7 @@ input {
   width: 100%;
   border: none;
 }
-.nav-btn:hover{
+.nav-btn:hover {
   background-color: var(--v2-button-hover);
 }
 
