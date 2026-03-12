@@ -8,7 +8,6 @@ import {
   handleDrop,
   checkVerse,
 } from './utils.js';
-import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
   // TODO
   // ? MAJOR
@@ -17,8 +16,11 @@ window.addEventListener('load', async (e) => {
   // ? MINOR
   // Styling
   // Timer
-  const res = await fetch('verses.json');
+  const res = await fetch('list.json');
   const data = await res.json();
+  const urls = data.map((verse) => `https://bible-api.com/${verse}`);
+  console.log(urls);
+
 
   let mode;
   if (window.innerWidth <= 750) {
@@ -112,7 +114,6 @@ window.addEventListener('load', async (e) => {
     console.log(convertedArr[0].style.backgroundColor);
     convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
-        incrementScore();
         // Update score
       }
     });
@@ -154,14 +155,6 @@ window.addEventListener('load', async (e) => {
     dragAndDrop.style.display = 'none';
     mainDisplay.style.display = 'none';
     scoresDisplay.style.display = 'none';
-  };
-
-  scores.onclick = function () {
-    scoresDisplay.style.display = 'block';
-    dragAndDrop.style.display = 'none';
-    instructionsDisplay.style.display = 'none';
-    mainDisplay.style.display = 'none';
-    fetchScores('http://localhost:3000/users');
   };
 
   function createLeaderboard(arr) {
