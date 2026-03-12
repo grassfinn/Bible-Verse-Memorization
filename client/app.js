@@ -12,7 +12,7 @@ window.addEventListener('load', async (e) => {
   // TODO
   // ? MAJOR
   // Allow 5 times a day
-  
+
   // ? MINOR
   // Styling
   // Timer
@@ -41,13 +41,13 @@ window.addEventListener('load', async (e) => {
     mode = 'desktop';
   }
   const checkButtonEle = document.querySelector('#check');
+  const section = document.querySelector('section');
   let book;
   let chapter;
   // let verse;
   const instructions = document.getElementById('instructions');
   const main = document.getElementById('main');
   const scores = document.getElementById('scores');
-  const exit = document.getElementById('exit');
   const middleDisplay = document.getElementById('middle-display');
   const dragAndDrop = document.getElementById('drag-and-drop');
   const instructionsDisplay = document.getElementById('instructions-display');
@@ -75,24 +75,21 @@ window.addEventListener('load', async (e) => {
     h2.textContent = verse.reference;
     shuffledChunkedVerse.map((section, index) => {
       const div = document.createElement('div');
-      const div2 = document.createElement('div')
-      const span = document.createElement('span')
+      const span = document.createElement('span');
       const p = document.createElement('p');
       const dragAndDropEle = document.getElementById('drag-and-drop');
       const versionSectionEle = document.getElementById('verse-section');
-      div.classList.add('verse-chunk')
-      dragAndDropEle.appendChild(div)
-      versionSectionEle.append(div2);
-      div2.append(p);
-      span.id
+      div.classList.add('verse-chunk');
+      dragAndDropEle.appendChild(div);
+      versionSectionEle.append(p);
+      span.id;
       p.textContent = section;
       p.append(span);
       div.classList.add('droppable');
       div.id = `drop-${index}`;
       if (mode === 'mobile') {
-        div2.addEventListener('click', handleSelect)
-      }
-      else {
+        p.addEventListener('click', handleSelect);
+      } else {
         div.addEventListener('drop', handleDrop);
         div.addEventListener('dragover', allowDrop);
       }
@@ -122,9 +119,9 @@ window.addEventListener('load', async (e) => {
 
   function updateScore(arr) {
     // NodeLists are not arrays
-    const convertedArr = [...arr]
-    console.log(convertedArr[0].style.backgroundColor)
-    convertedArr.every(item => {
+    const convertedArr = [...arr];
+    console.log(convertedArr[0].style.backgroundColor);
+    convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
         // Update score
       }
@@ -136,7 +133,7 @@ window.addEventListener('load', async (e) => {
   //! https://www.w3schools.com/html/html5_draganddrop.asp
 
   function handleSelect(e) {
-    console.log(e)
+    console.log(e);
     if (e.target.classList[0] === 'verse-section') {
       if (e.target.classList.contains('selected')) {
         const currentItem = +e.target.id;
@@ -154,18 +151,6 @@ window.addEventListener('load', async (e) => {
       e.target.id = currentOrder;
     }
   }
-
-  // Create a light and dark mode.
-  // const toggleButton = document.getElementById("toggle-button");
-
-  // toggleButton.addEventListener('click', () => {
-  //     document.documentElement.classList.toggle("light-theme");
-  //     let theme = document.getElementById("theme");
-  //     theme.classList.toggle("fa-sun-o");
-  //     theme.classList.toggle("fa-moon-o");
-  // });
-
-  mainDisplay.style.display = 'flex';
 
   main.onclick = function () {
     mainDisplay.style.display = 'block';
@@ -202,8 +187,10 @@ window.addEventListener('load', async (e) => {
   }
 
   startGameBtn.onclick = function () {
-    checkButtonEle.classList.toggle('not-active')
-    bottomNav.classList.toggle('not-active')
+    const bottomDisplay = document.getElementById('bottom-display');
+    const verseSection = document.getElementById('verse-section');
+    checkButtonEle.classList.toggle('not-active');
+    bottomDisplay.classList.toggle('not-active');
     if (mode === 'mobile') {
       dragAndDrop.style.display = 'none';
       mainDisplay.style.display = 'none';
@@ -217,10 +204,5 @@ window.addEventListener('load', async (e) => {
       dragAndDrop.style.display = 'grid';
       verseSection.style.display = 'grid';
     }
-    
-    bottomNav.style.display = 'none';
-    scoreContainer.style.display = 'flex';
-    timeContainer.style.display = 'flex';
-  }
-
-})
+  };
+});
