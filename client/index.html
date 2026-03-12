@@ -10,57 +10,7 @@
   </head>
 
   <body class="background">
-    <header>
-      <form id="sign-in-form">
-        <div class="form-container">
-          <div>
-            <a id="sign-up" class="form-btn" href="#">Sign Up</a>
-            <a id="sign-in" class="form-btn" href="#">Sign In</a>
-          </div>
-          <!-- Login -->
-          <div>
-            <section class="login not-active">
-              <label for="name"> </label>
-              <section id="sign-in-container">
-                <label for="loginEmail">
-                  <span>Email</span>
-                  <input
-                    type="text"
-                    id="loginEmail"
-                    name="loginEmail"
-                    value="test@gmail.com"
-                  />
-                </label>
-                <button id="user-login" type="submit">Login</button>
-              </section>
-            </section>
-            <!-- Sign Up -->
-            <section class="sign-up not-active">
-              <section id="sign-up-container">
-                <label for="name">
-                  <span>First name</span>
-                  <input type="text" id="name" name="name" value="andrew" />
-                </label>
-                <br />
-                <label for="email">
-                  <span>Enter your email</span>
-                  <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value="test@gmail.com"
-                  />
-                </label>
-                <br />
-                <button type="submit" id="create-account">
-                  Create Account
-                </button>
-              </section>
-            </section>
-          </div>
-        </div>
-      </form>
-    </header>
+    
     <!-- Main Section -->
     <main class="container">
       <h1 id="user"></h1>
@@ -76,6 +26,7 @@
           <!-- 1 -->
           <section id="top-display">
             <img src="./assets/cross-bg.png" alt="cross" id="cross" />
+            <h2 id="chapter-verse"></h2>
           </section>
 
           <!-- CONTAINER: MIDDLE DISPLAY -->
@@ -97,9 +48,9 @@
               <button type="button" id="start-game">Start</button>
             </section>
             <!-- Drag and Drop Section: Hidden until button click -->
-            <section class="grid" id="drag-and-drop"></section>
-            <!-- Score Section: Hidden until button click -->
-            <section id="scores-display">SCORES HERE</section>
+            <section class="grid" id="drag-and-drop">
+            </section>
+            
           </section>
 
           <!-- CONTAINER: BOTTOM DISPLAY -->
@@ -119,7 +70,6 @@
             <section id="bottom-nav">
               <button type="button" class="nav-btn" id="instructions">❔</button>
               <button type="button" class="nav-btn" id="main">▶️</button>
-              <button type="button" class="nav-btn" id="scores">📋</button>
             </section>
           </section>
         </div>
@@ -130,6 +80,5 @@
       <div class="footer-container"></div>
     </footer>
     <script type="module" src="./app.js"></script>
-    <script type="module" src="./form.js"></script>
   </body>
 </html>

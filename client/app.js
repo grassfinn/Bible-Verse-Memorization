@@ -8,7 +8,6 @@ import {
   handleDrop,
   checkVerse,
 } from './utils.js';
-import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
   // TODO
   // ? MAJOR
@@ -19,6 +18,21 @@ window.addEventListener('load', async (e) => {
   // Timer
   const res = await fetch('verses.json');
   const data = await res.json();
+  const urls = data.map((data) => {
+    const { book, chapter, verse } = data;
+
+    return `https://bible-api.com/${book}:${chapter}:${verse}`;
+  });
+  console.log(urls);
+
+  async function fetchVerse(url) {
+    const res = await fetch(url);
+    const data = await res.json();
+    return { text: data.text, verse: data.reference };
+  }
+
+  const verse = await fetchVerse(randomVerse(urls));
+  console.log(verse);
 
   let mode;
   if (window.innerWidth <= 750) {
@@ -43,10 +57,9 @@ window.addEventListener('load', async (e) => {
   const bottomNav = document.getElementById('bottom-nav');
   const startGameBtn = document.getElementById('start-game');
 
-  const verse = '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.'
-  const chunks = chunkWithMinSize(verse.split(' '), 4, 3)
-  console.log(chunks)
-  const order = chunks.map((_, i) => i + 1)
+  const chunks = chunkWithMinSize(verse.text.split(' '), 4, 3);
+  console.log(chunks);
+  const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
 
   display(verse);
@@ -54,9 +67,8 @@ window.addEventListener('load', async (e) => {
   const verseChunks = document.getElementsByClassName('verse-chunk');
 
   function display(verse) {
-    console.log(verse)
     const h2 = document.querySelector('h2');
-    const verseSplit = verse.split(' ');
+    const verseSplit = verse.text.split(' ');
     const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
     const shuffledChunkedVerse = shuffle(chunkedVerse);
 
@@ -114,7 +126,6 @@ window.addEventListener('load', async (e) => {
     console.log(convertedArr[0].style.backgroundColor)
     convertedArr.every(item => {
       if (item.style.backgroundColor === 'lawngreen') {
-        incrementScore();
         // Update score
       }
     });
@@ -168,14 +179,6 @@ window.addEventListener('load', async (e) => {
     dragAndDrop.style.display = 'none';
     mainDisplay.style.display = 'none';
     scoresDisplay.style.display = 'none';
-  };
-
-  scores.onclick = function () {
-    scoresDisplay.style.display = 'block';
-    dragAndDrop.style.display = 'none';
-    instructionsDisplay.style.display = 'none';
-    mainDisplay.style.display = 'none';
-    fetchScores('http://localhost:3000/users')
   };
 
   function createLeaderboard(arr) {
