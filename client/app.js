@@ -16,11 +16,23 @@ window.addEventListener('load', async (e) => {
   // ? MINOR
   // Styling
   // Timer
-  const res = await fetch('list.json');
+  const res = await fetch('verses.json');
   const data = await res.json();
-  const urls = data.map((verse) => `https://bible-api.com/${verse}`);
+  const urls = data.map((data) => {
+    const { book, chapter, verse } = data;
+
+    return `https://bible-api.com/${book}:${chapter}:${verse}`;
+  });
   console.log(urls);
 
+  async function fetchVerse(url) {
+    const res = await fetch(url);
+    const data = await res.json();
+    return { text: data.text, verse: data.reference };
+  }
+
+  const verse = await fetchVerse(randomVerse(urls));
+  console.log(verse);
 
   let mode;
   if (window.innerWidth <= 750) {
@@ -45,9 +57,7 @@ window.addEventListener('load', async (e) => {
   const bottomNav = document.getElementById('bottom-nav');
   const startGameBtn = document.getElementById('start-game');
 
-  const verse =
-    '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.';
-  const chunks = chunkWithMinSize(verse.split(' '), 4, 3);
+  const chunks = chunkWithMinSize(verse.text.split(' '), 4, 3);
   console.log(chunks);
   const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
@@ -57,9 +67,8 @@ window.addEventListener('load', async (e) => {
   const verseChunks = document.getElementsByClassName('verse-chunk');
 
   function display(verse) {
-    console.log(verse);
     const h2 = document.querySelector('h2');
-    const verseSplit = verse.split(' ');
+    const verseSplit = verse.text.split(' ');
     const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
     const shuffledChunkedVerse = shuffle(chunkedVerse);
 
