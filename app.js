@@ -8,45 +8,67 @@ import {
   handleDrop,
   checkVerse,
 } from './utils.js';
-import { incrementScore } from './form.js';
 window.addEventListener('load', async (e) => {
+  // TODO
+  // ? MAJOR
+  // Allow 5 times a day
+
+  // ? MINOR
+  // Styling
+  // Timer
   const res = await fetch('verses.json');
   const data = await res.json();
+  const urls = data.map((data) => {
+    const { book, chapter, verse } = data;
 
-  let mode;
-  setMode();
-  window.addEventListener('resize', setMode);
+    return `https://bible-api.com/${book}:${chapter}:${verse}`;
+  });
+  console.log(urls);
 
-  function setMode() {
-    if (window.innerWidth <= 750) {
-      mode = 'mobile';
-    } else {
-      mode = 'desktop';
-    }
+  async function fetchVerse(url) {
+    const res = await fetch(url);
+    const data = await res.json();
+    return { text: data.text, verse: data.reference };
   }
 
+  const verse = await fetchVerse(randomVerse(urls));
+  console.log(verse);
+
+  let mode;
+  if (window.innerWidth <= 750) {
+    mode = 'mobile';
+  } else {
+    mode = 'desktop';
+  }
   const checkButtonEle = document.querySelector('#check');
+  const section = document.querySelector('section');
   let book;
   let chapter;
   // let verse;
   const instructions = document.getElementById('instructions');
   const main = document.getElementById('main');
   const scores = document.getElementById('scores');
+  const middleDisplay = document.getElementById('middle-display');
   const dragAndDrop = document.getElementById('drag-and-drop');
   const instructionsDisplay = document.getElementById('instructions-display');
   const mainDisplay = document.getElementById('main-display');
   const scoresDisplay = document.getElementById('scores-display');
+  const bottomVerses = document.getElementById('bottom-verses');
+  const bottomNav = document.getElementById('bottom-nav');
   const startGameBtn = document.getElementById('start-game');
 
-  const verse =
-    '16 All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: 17 That the man of God may be perfect, throughly furnished unto all good works.';
-  const chunks = chunkWithMinSize(verse.split(' '), 4, 3);
+  const chunks = chunkWithMinSize(verse.text.split(' '), 4, 3);
+  console.log(chunks);
   const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
 
+  display(verse);
+
+  const verseChunks = document.getElementsByClassName('verse-chunk');
+
   function display(verse) {
     const h2 = document.querySelector('h2');
-    const verseSplit = verse.split(' ');
+    const verseSplit = verse.text.split(' ');
     const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
     const shuffledChunkedVerse = shuffle(chunkedVerse);
 
@@ -82,7 +104,6 @@ window.addEventListener('load', async (e) => {
   }
 
   function handleClick() {
-    const bottomNav = document.getElementById('bottom-nav');
     const droppableEle = document.querySelectorAll('.droppable');
     const selectedEle = document.querySelectorAll('.selected');
     bottomNav.classList.toggle('not-active');
@@ -102,7 +123,6 @@ window.addEventListener('load', async (e) => {
     console.log(convertedArr[0].style.backgroundColor);
     convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
-        incrementScore();
         // Update score
       }
     });
@@ -146,15 +166,7 @@ window.addEventListener('load', async (e) => {
     scoresDisplay.style.display = 'none';
   };
 
-  scores.onclick = function () {
-    scoresDisplay.style.display = 'block';
-    dragAndDrop.style.display = 'none';
-    instructionsDisplay.style.display = 'none';
-    mainDisplay.style.display = 'none';
-    fetchScores('https://bible-verse-memorization.onrender.com/users');
-  };
-
-  function createLeaderBoard(arr) {
+  function createLeaderboard(arr) {
     arr.sort((user1, user2) => user2.score - user1.score);
     return arr
       .map((user) => {
@@ -171,21 +183,12 @@ window.addEventListener('load', async (e) => {
     const scoresDisplayEle = document.querySelector('#scores-display');
     const res = await fetch(db);
     const data = await res.json();
-    scoresDisplayEle.innerHTML = createLeaderBoard(data);
+    scoresDisplayEle.innerHTML = createLeaderboard(data);
   }
 
   startGameBtn.onclick = function () {
-    const form = document.getElementById('sign-in-form');
-    const middleDisplay = document.getElementById('middle-display');
-    const bottomVerses = document.getElementById('bottom-verses');
     const bottomDisplay = document.getElementById('bottom-display');
     const verseSection = document.getElementById('verse-section');
-    
-    display(verse);
-
-    if (form) {
-      form.style.visibility = 'hidden';
-    }
     checkButtonEle.classList.toggle('not-active');
     bottomDisplay.classList.toggle('not-active');
     if (mode === 'mobile') {

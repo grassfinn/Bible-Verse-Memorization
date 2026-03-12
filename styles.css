@@ -103,31 +103,27 @@ span {
   --cs-font-size-xlg: 2.5rem;
   --cs-font-size-xxlg: 3rem;
   /* v2 */
-  --v2-bg: #fff;
+  --v2-bg: #222831;
   --v2-container: #b07f3f;
   --v2-border: #d2b48c;
   --v2-nav: #2a2a2a;
   --v2-btn-border-color: #2a2a2a;
   --v2-button: #2a2a2a;
-  --v2-button-hover: #404040;
+  --v2-button-hover: #31363f;
   --v2-text-primary: #000;
   --v2-text-secondary: #1c1c1c;
   --v2-text-tertiary: #000;
-  --v2-accent: #d2b48c;
-  --v2-container-box-shadow: 0 2px 0 #d0b592, inset 0px 2px 2px #9e835e;
+  --v2-accent: #76abae;
+  --v2-container-box-shadow: 0 2px 0 #76abae, inset 0px 2px 2px #31363f;
   --cross-bg: #fff;
   --clr-heading: #f5edd7;
 }
 
 /* General */
-* {
-  /* outline: 2px solid red; */
-}
 
 body,
 html {
-  min-height: 100svh;
-  /* min-height: -webkit-fill-available */
+  min-height: 100vh;
 }
 
 .not-active {
@@ -142,33 +138,10 @@ html {
 }
 
 .background {
-  background-image: url('./assets/bg.png');
-  background-color: #b07f3f;
+  background-color: var(--v2-bg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-/* Mobile */
-/* !Header */
-.form-container {
-  text-align: right;
-}
-.form-btn {
-  font-size: var(--cs-font-size-md);
-  width: 130px;
-  text-align: center;
-  display: inline-block;
-  padding: 12px;
-  background-color: var(--v2-button);
-  /* border-bottom-right-radius: 5px ; */
-  /* border-bottom-left-radius: 5px; */
-  text-decoration: none;
-  color: var(--v2-accent);
-}
-
-#user {
-  text-align: center;
 }
 
 input {
@@ -176,47 +149,14 @@ input {
   margin-top: -4px;
 }
 
-.form-container {
-  position: relative;
-}
-
-.sign-up {
-  position: relative;
-  z-index: 1;
-  height: 300px;
-}
-
-.sign-up,
-.login {
-  padding: 1em;
-  margin-left: auto;
-  background-color: var(--v2-button);
-  position: absolute;
-  right: 0;
-  color: white;
-}
-
-.sign-up span,
-.login span,
-.sign-up input,
-.login input,
-#create-account,
-#user-login {
-  display: block;
-  text-align: left;
-  font-size: 1.5em;
-}
-#create-account,
-#user-login {
-  margin-top: 12px;
-}
+/* ! Top display */
 
 /* !Main */
 
 #cross {
   --s: 250px;
   --b: 5px;
-  --c: var(--clr-heading);
+  --c: #eeeeee;
   --f: 1;
   --_g: 50% / calc(100% / var(--f)) 100% no-repeat content-box;
   display: block;
@@ -246,13 +186,13 @@ input {
   background-color: var(--v2-accent);
   border-radius: 8px;
   padding: 20px;
+  align-content: center;
   margin: 0 auto;
   /* Turn on in desktop view */
   /* display: none; */
   height: 250px;
   width: 100%;
   font-size: 1.2em;
-  position: relative;
 }
 
 #drag-and-drop {
@@ -297,12 +237,9 @@ input {
 #scores-display {
   display: none;
 }
-#scores-display {
-}
 
 #main-display {
   font-size: 2rem;
-  margin-top: -25px;
 }
 
 #start-game,
@@ -325,32 +262,20 @@ input {
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%);
-  width: 100%;
+  transform: translateX(-50%);
 }
 #bottom-nav {
   display: flex;
+  gap: 16px;
 }
 
 .nav-btn {
   font-size: 1.5em;
+  border-radius: 15px;
   background-color: var(--v2-button);
   padding: 0.8em;
   width: 100%;
-  border: none;
 }
-.nav-btn:hover {
-  background-color: var(--v2-button-hover);
-}
-
-.nav-btn:first-child {
-  border-bottom-left-radius: 8px;
-}
-
-.nav-btn:last-child {
-  border-bottom-right-radius: 8px;
-}
-
 #bottom-verses {
   display: block;
   text-align: center;
@@ -373,14 +298,10 @@ input {
   border-radius: 8px;
   border: 4px solid black;
   margin-top: 12px;
+  background-color: #eeeeeeaa;
 }
-
 .verse-section:hover {
-  box-shadow: var(--cs-box-shadow-main);
-  cursor: grab;
-}
-.verse-section:active {
-  cursor: grabbing;
+  cursor: pointer;
 }
 
 .verse-section span {
@@ -397,7 +318,6 @@ input {
   #cross {
     position: relative;
     z-index: -1;
-    margin-top: -60px;
   }
 
   #middle-display {
@@ -406,20 +326,6 @@ input {
     align-content: center;
     padding: 0;
   }
-
-  #instructions-display,
-  #scores-display {
-    display: none;
-    max-width: 70%;
-    margin: 0 auto;
-    margin-top: -80px;
-  }
-
-  #main-display {
-    font-size: 2rem;
-    margin-top: -145px;
-  }
-
   #drag-and-drop {
     display: none;
     align-items: center;
