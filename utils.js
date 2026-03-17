@@ -1,21 +1,22 @@
 // split array into chunks
 //! https://www.30secondsofcode.org/js/s/split-array-into-chunks/
-export function chunkWithMinSize(arr, chunkSize, minChunkSize = 0) {
-  // How many elements will be left over
-  const remainder = arr.length % chunkSize;
-  // Check if the last check is too small
-  const isLastChunkTooSmall = remainder < minChunkSize;
-  const totalChunks = isLastChunkTooSmall
-    ? // if last chunk is to small total chunk is rounded down
-      Math.floor(arr.length / chunkSize)
-    : // if last chunk is to big total chunk is rounded up
-      Math.ceil(arr.length / chunkSize);
-  return Array.from({ length: totalChunks }, (item, i) => {
-    const chunk = arr.slice(i * chunkSize, i * chunkSize + chunkSize);
-    if (i === totalChunks - 1 && isLastChunkTooSmall)
-      chunk.push(...arr.slice(-remainder));
-    return chunk.join(' ');
-  });
+export function chunkWithMinSize(arr, chunkSize, minChunkSize = 3) {
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    const chunk = arr.slice(i, i + chunkSize).join(' ');
+
+    const remainderSize = arr.length - (i + chunkSize);
+
+    // If the NEXT chunk would be too small, merge it into this one and stop
+    if (remainderSize > 0 && remainderSize < minChunkSize) {
+      chunks.push(arr.slice(i).join(' '));
+      break;
+    }
+
+    chunks.push(chunk);
+  }
+
+  return chunks;
 }
 
 export function randomVerse(arr) {
@@ -75,5 +76,3 @@ export function checkVerse(mode, element, arr) {
     return (element[i].style.backgroundColor = 'red');
   });
 }
-
-

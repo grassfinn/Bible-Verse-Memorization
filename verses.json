@@ -1,4 +1,6 @@
 [
   { "book": "2 Timothy", "chapter": 3, "verse": "16-17" },
-  { "book": "Proverbs", "chapter": 14, "verse": "12" }
+  { "book": "Proverbs", "chapter": 14, "verse": "12" },
+  { "book": "Proverbs", "chapter": 16, "verse": "3" },
+  { "book": "Proverbs", "chapter": 16, "verse": "6" }
 ]

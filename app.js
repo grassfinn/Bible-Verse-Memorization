@@ -23,16 +23,22 @@ window.addEventListener('load', async (e) => {
 
     return `https://bible-api.com/${book}:${chapter}:${verse}`;
   });
-  console.log(urls);
+  // console.log(urls);
 
   async function fetchVerse(url) {
     const res = await fetch(url);
     const data = await res.json();
-    return { text: data.text, verse: data.reference };
+    const verse = {
+      text: data.text.replaceAll('\n', ' ').trimEnd(),
+      verse: data.reference,
+    };
+    // console.log(verse.text);
+
+    return verse;
   }
 
   const verse = await fetchVerse(randomVerse(urls));
-  console.log(verse);
+  // console.log(verse);
 
   let mode;
   if (window.innerWidth <= 750) {
@@ -41,9 +47,6 @@ window.addEventListener('load', async (e) => {
     mode = 'desktop';
   }
   const checkButtonEle = document.querySelector('#check');
-  const section = document.querySelector('section');
-  let book;
-  let chapter;
   // let verse;
   const instructions = document.getElementById('instructions');
   const main = document.getElementById('main');
@@ -57,19 +60,19 @@ window.addEventListener('load', async (e) => {
   const bottomNav = document.getElementById('bottom-nav');
   const startGameBtn = document.getElementById('start-game');
 
-  const chunks = chunkWithMinSize(verse.text.split(' '), 4, 3);
-  console.log(chunks);
+  const chunks = chunkWithMinSize(verse.text.split(' '), 3, 3);
   const order = chunks.map((_, i) => i + 1);
   // loadRandomVerse();
 
   display(verse);
 
-  const verseChunks = document.getElementsByClassName('verse-chunk');
-
-  function display(verse) {
+  function display({ text }) {
     const h2 = document.querySelector('h2');
-    const verseSplit = verse.text.split(' ');
-    const chunkedVerse = chunkWithMinSize(verseSplit, 4, 3);
+    const trimmedVerse = text.trimEnd();
+    const verseSplit = trimmedVerse.split(' ');
+
+    const chunkedVerse = chunkWithMinSize(verseSplit, 3, 3);
+
     const shuffledChunkedVerse = shuffle(chunkedVerse);
 
     h2.textContent = verse.reference;
@@ -120,7 +123,7 @@ window.addEventListener('load', async (e) => {
   function updateScore(arr) {
     // NodeLists are not arrays
     const convertedArr = [...arr];
-    console.log(convertedArr[0].style.backgroundColor);
+    // console.log(convertedArr[0].style.backgroundColor);
     convertedArr.every((item) => {
       if (item.style.backgroundColor === 'lawngreen') {
         // Update score
